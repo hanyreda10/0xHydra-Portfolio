@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hany Reda Farag | Cybersecurity Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #00ff88;
+            --primary-dark: #00cc6a;
+            --secondary: #0ea5e9;
+            --accent: #f59e0b;
+            --dark-bg: #0a0a0a;
+            --card-bg: #111111;
+            --border: #1f1f1f;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+        
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch-skew 1s infinite linear alternate-reverse;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            animation: glitch-anim2 1s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(78px, 9999px, 20px, 0); }
+            40% { clip: rect(15px, 9999px, 63px, 0); }
+            60% { clip: rect(89px, 9999px, 12px, 0); }
+            80% { clip: rect(45px, 9999px, 78px, 0); }
+            100% { clip: rect(62px, 9999px, 34px, 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 99px, 0); }
+            20% { clip: rect(12px, 9999px, 45px, 0); }
+            40% { clip: rect(78px, 9999px, 23px, 0); }
+            60% { clip: rect(34px, 9999px, 67px, 0); }
+            80% { clip: rect(91px, 9999px, 12px, 0); }
+            100% { clip: rect(56px, 9999px, 89px, 0); }
+        }
+        
+        /* Typing Cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: var(--primary);
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        
+        /* Scanline Effect */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.3;
+        }
+        
+        /* Matrix Rain Canvas */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        
+        /* Skill Bar Animation */
+        .skill-bar {
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .skill-bar.animate {
+            width: var(--target-width);
+        }
+        
+        /* Card Hover Effects */
+        .cyber-card {
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+        .cyber-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Terminal Window */
+        .terminal-window {
+            background: #0c0c0c;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .terminal-header {
+            background: #1a1a1a;
+            padding: 8px 12px;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .terminal-body {
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        /* Badge Glow */
+        .badge-glow {
+            position: relative;
+            overflow: hidden;
+        }
+        .badge-glow::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 255, 136, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        /* Particle Background */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 10s infinite;
+        }
+        @keyframes float {
+            0% { opacity: 0; transform: translateY(0) scale(0); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100vh) scale(1); }
+        }
+        
+        /* Navigation Blur */
+        .nav-blur {
+            backdrop-filter: blur(12px);
+            background: rgba(10, 10, 10, 0.8);
+        }
+        
+        /* Section Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Tool Icon Hover */
+        .tool-icon {
+            transition: all 0.3s ease;
+        }
+        .tool-icon:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        /* CTF Card */
+        .ctf-card {
+            background: linear-gradient(135deg, rgba(0,255,136,0.05) 0%, transparent 100%);
+            border-left: 3px solid var(--primary);
+        }
+        
+        /* Certification Badge */
+        .cert-badge {
+            transition: all 0.3s ease;
+        }
+        .cert-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+        
+        /* Pulse Ring */
+        .pulse-ring {
+            position: relative;
+        }
+        .pulse-ring::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        /* Custom Selection */
+        ::selection {
+            background: rgba(0, 255, 136, 0.3);
+            color: white;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Matrix Background -->
+    <canvas id="matrix-canvas"></canvas>
+    <div class="scanlines"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-40 nav-blur border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-emerald-500/10 rounded flex items-center justify-center border border-emerald-500/30">
+                        <i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i>
+                    </div>
+                    <span class="font-mono font-bold text-emerald-400 tracking-wider">0xHydra</span>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="text-sm text-gray-400 hover:text-emerald-400 transition-colors font-mono">[01] About</a>
+                    <a href="#skills" class="text-sm text-gray-400 hover:text-emerald-400 transition-colors font-mono">[02] Skills</a>
+                    <a href="#experience" class="text-sm text-gray-400 hover:text-emerald-400 transition-colors font-mono">[03] Experience</a>
+                    <a href="#certs" class="text-sm text-gray-400 hover:text-emerald-400 transition-colors font-mono">[04] Certs</a>
+                    <a href="#contact" class="text-sm text-gray-400 hover:text-emerald-400 transition-colors font-mono">[05] Contact</a>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-400 hover:text-emerald-400">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden nav-blur border-b border-white/5">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#about" class="block py-2 text-sm text-gray-400 hover:text-emerald-400 font-mono">[01] About</a>
+                <a href="#skills" class="block py-2 text-sm text-gray-400 hover:text-emerald-400 font-mono">[02] Skills</a>
+                <a href="#experience" class="block py-2 text-sm text-gray-400 hover:text-emerald-400 font-mono">[03] Experience</a>
+                <a href="#certs" class="block py-2 text-sm text-gray-400 hover:text-emerald-400 font-mono">[04] Certs</a>
+                <a href="#contact" class="block py-2 text-sm text-gray-400 hover:text-emerald-400 font-mono">[05] Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+        <div class="particles" id="particles"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-mono">
+                <span class="pulse-ring w-2 h-2 bg-emerald-400 rounded-full inline-block"></span>
+                <span>Available for Opportunities</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
+                <span class="block text-white mb-2">Hany Reda Farag</span>
+                <span class="block text-emerald-400 font-mono text-2xl md:text-4xl lg:text-5xl mt-4 typing-cursor" id="typing-text"></span>
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-gray-400 text-lg md:text-xl mb-10 leading-relaxed">
+                Aspiring Cybersecurity Specialist focused on <span class="text-emerald-400">Network Security</span>, 
+                <span class="text-emerald-400">Web App Security</span>, and <span class="text-emerald-400">Red Teaming</span>. 
+                CTF Player | Bug Bounty Hunter | OSCP Pursuer
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#contact" class="group relative px-8 py-4 bg-emerald-500 text-black font-bold rounded-lg overflow-hidden transition-all hover:scale-105">
+                    <span class="relative z-10 flex items-center gap-2">
+                        <i data-lucide="terminal" class="w-5 h-5"></i>
+                        Initialize Contact
+                    </span>
+                    <div class="absolute inset-0 bg-emerald-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                </a>
+                <a href="#experience" class="px-8 py-4 border border-gray-700 text-gray-300 font-medium rounded-lg hover:border-emerald-500 hover:text-emerald-400 transition-all flex items-center gap-2">
+                    <i data-lucide="folder-open" class="w-5 h-5"></i>
+                    View Operations
+                </a>
+            </div>
+
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-white font-mono">50+</div>
+                    <div class="text-sm text-gray-500 mt-1">CTF Challenges</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-white font-mono">20+</div>
+                    <div class="text-sm text-gray-500 mt-1">Web Apps Tested</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-white font-mono">100+</div>
+                    <div class="text-sm text-gray-500 mt-1">Students Trained</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl font-bold text-white font-mono">10+</div>
+                    <div class="text-sm text-gray-500 mt-1">Workshops</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6 text-gray-600"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="font-mono text-emerald-400 text-sm">[01]</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white">System Profile</h2>
+                    </div>
+                    
+                    <div class="terminal-window mb-6">
+                        <div class="terminal-header">
+                            <div class="terminal-dot bg-red-500"></div>
+                            <div class="terminal-dot bg-yellow-500"></div>
+                            <div class="terminal-dot bg-green-500"></div>
+                            <span class="ml-2 text-xs text-gray-500 font-mono">root@hany:~$ neofetch</span>
+                        </div>
+                        <div class="terminal-body text-gray-300 space-y-1">
+                            <div><span class="text-emerald-400">OS:</span> Cybersecurity Specialist v1.0</div>
+                            <div><span class="text-emerald-400">Host:</span> Modern University for Technology & Information</div>
+                            <div><span class="text-emerald-400">Kernel:</span> B.Sc. Computer Science (Expected 2027)</div>
+                            <div><span class="text-emerald-400">Uptime:</span> CTF Player, Bug Hunter, Trainer</div>
+                            <div><span class="text-emerald-400">Shell:</span> Burp Suite Pro, Nmap, Metasploit</div>
+                            <div><span class="text-emerald-400">Location:</span> Cairo, Egypt</div>
+                            <div><span class="text-emerald-400">Status:</span> <span class="text-yellow-400">Pursuing OSCP</span></div>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-400 leading-relaxed mb-6">
+                        Proactive cybersecurity enthusiast with hands-on experience in vulnerability identification, 
+                        OSINT, and penetration testing. Founded <span class="text-emerald-400 font-semibold">CyMatriX</span>, 
+                        training 100+ students in web application security and reconnaissance techniques.
+                    </p>
+
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-mono">OSCP (In Progress)</span>
+                        <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-mono">eJPTv2 Prep</span>
+                        <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-sm font-mono">Bug Bounty</span>
+                        <span class="px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-mono">Red Teaming</span>
+                    </div>
+                </div>
+
+                <div class="reveal delay-200">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-2xl blur-2xl"></div>
+                        <div class="relative cyber-card bg-[#111] rounded-2xl p-8">
+                            <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                                <i data-lucide="target" class="w-5 h-5 text-emerald-400"></i>
+                                Active Operations
+                            </h3>
+                            
+                            <div class="space-y-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0 border border-emerald-500/20">
+                                        <i data-lucide="bug" class="w-6 h-6 text-emerald-400"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold">Bug Bounty Hunter</h4>
+                                        <p class="text-gray-400 text-sm mt-1">Active on HackerOne, Bugcrowd, and BugBase. Identified high and medium severity vulnerabilities including SQL Injection and Broken Access Control.</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0 border border-blue-500/20">
+                                        <i data-lucide="users" class="w-6 h-6 text-blue-400"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold">CyMatriX Founder</h4>
+                                        <p class="text-gray-400 text-sm mt-1">Founded cybersecurity team focused on offensive security. Delivered 10+ hands-on training sessions covering OWASP Top 10 vulnerabilities.</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0 border border-purple-500/20">
+                                        <i data-lucide="trophy" class="w-6 h-6 text-purple-400"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-semibold">CTF Competitor</h4>
+                                        <p class="text-gray-400 text-sm mt-1">Solved 50+ web exploitation challenges across multiple CTF platforms. Continuous skill sharpening through competitive environments.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-[#0c0c0c] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-emerald-400 text-sm">[02]</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">Technical Arsenal</h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Proficiency in offensive security tools, vulnerability assessment, and secure coding practices.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Security Tools -->
+                <div class="cyber-card bg-[#111] rounded-xl p-6 reveal">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                            <i data-lucide="wrench" class="w-5 h-5 text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Security Tools</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-400">Burp Suite Pro</span>
+                                <span class="text-sm text-emerald-400 font-mono">95%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-emerald-400 rounded-full" style="--target-width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-400">Nmap / Nessus</span>
+                                <span class="text-sm text-emerald-400 font-mono">90%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-emerald-400 rounded-full" style="--target-width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-400">Metasploit</span>
+                                <span class="text-sm text-emerald-400 font-mono">85%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-emerald-400 rounded-full" style="--target-width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-400">SQLMap / Acunetix</span>
+                                <span class="text-sm text-emerald-400 font-mono">88%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-emerald-400 rounded-full" style="--target-width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vulnerabilities -->
+                <div class="cyber-card bg-[#111] rounded-xl p-6 reveal delay-100">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center">
+                            <i data-lucide="alert-triangle" class="w-5 h-5 text-red-400"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">OWASP Top 10</h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="database" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">SQL Injection</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="folder-open" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">Path Traversal</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="server" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">SSRF</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="lock" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">Broken Access</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="mouse-pointer-click" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">Clickjacking</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="shield-alert" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">CSRF</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="code" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">XSS</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="globe" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">CORS</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="key" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">Auth Info Disclosure</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="shield" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">OAuth Auth</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="brain" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">Business Logic</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-red-500/5 border border-red-500/10">
+                            <i data-lucide="plug" class="w-4 h-4 text-red-400"></i>
+                            <span class="text-xs text-gray-300">API Testing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Programming -->
+                <div class="cyber-card bg-[#111] rounded-xl p-6 reveal delay-200">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                            <i data-lucide="code-2" class="w-5 h-5 text-blue-400"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Languages</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800/50 border border-gray-700 hover:border-blue-500/50 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <span class="text-blue-400 font-mono text-sm">PY</span>
+                                <span class="text-gray-300 text-sm">Python</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-700"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800/50 border border-gray-700 hover:border-blue-500/50 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <span class="text-blue-400 font-mono text-sm">C++</span>
+                                <span class="text-gray-300 text-sm">C / C++</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-700"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800/50 border border-gray-700 hover:border-blue-500/50 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <span class="text-blue-400 font-mono text-sm">JS</span>
+                                <span class="text-gray-300 text-sm">JavaScript</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-700"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-700"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-lg bg-gray-800/50 border border-gray-700 hover:border-blue-500/50 transition-colors">
+                            <div class="flex items-center gap-3">
+                                <span class="text-blue-400 font-mono text-sm">SH</span>
+                                <span class="text-gray-300 text-sm">Bash</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+                                <div class="w-2 h-2 rounded-full bg-gray-700"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Networking & Recon -->
+            <div class="mt-8 grid md:grid-cols-2 gap-8">
+                <div class="cyber-card bg-[#111] rounded-xl p-6 reveal">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="network" class="w-5 h-5 text-purple-400"></i>
+                        Networking & Reconnaissance
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm">TCP/IP</span>
+                        <span class="px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm">DNS</span>
+                        <span class="px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm">HTTP/HTTPS</span>
+                        <span class="px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm">OSI Model</span>
+                        <span class="px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm">Firewalls</span>
+                        <span class="px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm">Routers/Switches</span>
+                        <span class="px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm">Shodan OSINT</span>
+                        <span class="px-3 py-1.5 rounded-md bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm">Active Recon</span>
+                    </div>
+                </div>
+
+                <div class="cyber-card bg-[#111] rounded-xl p-6 reveal delay-100">
+                    <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="sword" class="w-5 h-5 text-orange-400"></i>
+                        Additional Arsenal
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="flex items-center gap-2 text-gray-400 text-sm">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                            Dirb / Gobuster
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400 text-sm">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                            John the Ripper
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400 text-sm">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                            Manual Payload Crafting
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400 text-sm">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                            Vulnerability Analysis
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400 text-sm">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                            Enumeration
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400 text-sm">
+                            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                            Web App Pentesting
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-emerald-400 text-sm">[03]</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">Operation Log</h2>
+                <p class="text-gray-400 mt-4">Chronological record of field operations and training missions.</p>
+            </div>
+
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gradient-to-b from-emerald-500/50 via-emerald-500/20 to-transparent"></div>
+
+                <!-- Timeline Items -->
+                <div class="space-y-12">
+                    <!-- CyMatriX Founder -->
+                    <div class="relative reveal">
+                        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-4">
+                            <div class="w-4 h-4 rounded-full bg-emerald-500 border-4 border-[#0a0a0a] shadow-lg shadow-emerald-500/50"></div>
+                        </div>
+                        <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                            <div class="md:text-right mb-4 md:mb-0">
+                                <div class="ctf-card p-6 rounded-xl inline-block md:text-left w-full">
+                                    <div class="flex items-center gap-2 mb-2 text-emerald-400 font-mono text-sm">
+                                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                                        2024 - Present
+                                    </div>
+                                    <h3 class="text-xl font-bold text-white mb-2">CyMatriX Founder & Lead Trainer</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed">
+                                        Founded offensive security team focused on bug hunting. Trained 100+ students on web application security and reconnaissance. Delivered 10+ hands-on sessions covering OWASP Top 10. Helped 30+ trainees submit their first valid vulnerability.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block"></div>
+                        </div>
+                    </div>
+
+                    <!-- Bug Bounty -->
+                    <div class="relative reveal">
+                        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-4">
+                            <div class="w-4 h-4 rounded-full bg-blue-500 border-4 border-[#0a0a0a] shadow-lg shadow-blue-500/50"></div>
+                        </div>
+                        <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                            <div class="hidden md:block"></div>
+                            <div class="mb-4 md:mb-0">
+                                <div class="ctf-card p-6 rounded-xl border-l-blue-500 w-full" style="border-left-color: #3b82f6;">
+                                    <div class="flex items-center gap-2 mb-2 text-blue-400 font-mono text-sm">
+                                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                                        2023 - Present
+                                    </div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Bug Bounty Hunter</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed">
+                                        Reported valid vulnerabilities on HackerOne, Bugcrowd, and BugBase. Tested 20+ web applications using manual testing and Burp Suite Pro. Specialized in SQL Injection and Broken Access Control findings.
+                                    </p>
+                                    <div class="flex gap-2 mt-3">
+                                        <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-400 text-xs font-mono">HackerOne</span>
+                                        <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-400 text-xs font-mono">Bugcrowd</span>
+                                        <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-400 text-xs font-mono">BugBase</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTF Player -->
+                    <div class="relative reveal">
+                        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-4">
+                            <div class="w-4 h-4 rounded-full bg-purple-500 border-4 border-[#0a0a0a] shadow-lg shadow-purple-500/50"></div>
+                        </div>
+                        <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                            <div class="md:text-right mb-4 md:mb-0">
+                                <div class="ctf-card p-6 rounded-xl inline-block md:text-left w-full" style="border-left-color: #a855f7;">
+                                    <div class="flex items-center gap-2 mb-2 text-purple-400 font-mono text-sm">
+                                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                                        Ongoing
+                                    </div>
+                                    <h3 class="text-xl font-bold text-white mb-2">CTF Player & Security Researcher</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed">
+                                        Solved 50+ web exploitation challenges across multiple CTF platforms. Continuous practice in network security, web application security, and red teaming methodologies.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block"></div>
+                        </div>
+                    </div>
+
+                    <!-- Workshops -->
+                    <div class="relative reveal">
+                        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-4">
+                            <div class="w-4 h-4 rounded-full bg-orange-500 border-4 border-[#0a0a0a] shadow-lg shadow-orange-500/50"></div>
+                        </div>
+                        <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                            <div class="hidden md:block"></div>
+                            <div class="mb-4 md:mb-0">
+                                <div class="ctf-card p-6 rounded-xl border-l-orange-500 w-full" style="border-left-color: #f97316;">
+                                    <div class="flex items-center gap-2 mb-2 text-orange-400 font-mono text-sm">
+                                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                                        2024 - 2025
+                                    </div>
+                                    <h3 class="text-xl font-bold text-white mb-2">Workshop Attendee & Community</h3>
+                                    <p class="text-gray-400 text-sm leading-relaxed">
+                                        Attended 10+ cybersecurity workshops and industry events including CairoICT 2025 hosted by Google Developer Group Cairo. Active participant in the local security community.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certs" class="py-24 bg-[#0c0c0c] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <span class="font-mono text-emerald-400 text-sm">[04]</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">Credentials & Certifications</h2>
+                <p class="text-gray-400 mt-4">Verified certifications and completed training programs.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Cert Cards -->
+                <div class="cert-badge bg-[#111] border border-gray-800 rounded-xl p-6 relative overflow-hidden group reveal">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-all"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                            <i data-lucide="award" class="w-6 h-6 text-emerald-400"></i>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">2026</span>
+                    </div>
+                    <h3 class="text-white font-bold mb-1">Google CyberSecurity Professional</h3>
+                    <p class="text-gray-500 text-sm">Coursera</p>
+                </div>
+
+                <div class="cert-badge bg-[#111] border border-gray-800 rounded-xl p-6 relative overflow-hidden group reveal delay-100">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition-all"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-blue-500/10 flex items-center justify-center">
+                            <i data-lucide="crosshair" class="w-6 h-6 text-blue-400"></i>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">2025</span>
+                    </div>
+                    <h3 class="text-white font-bold mb-1">Red Teaming & Ethical Hacking</h3>
+                    <p class="text-gray-500 text-sm">Red Nexus</p>
+                </div>
+
+                <div class="cert-badge bg-[#111] border border-gray-800 rounded-xl p-6 relative overflow-hidden group reveal delay-200">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/5 rounded-full blur-2xl group-hover:bg-purple-500/10 transition-all"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                            <i data-lucide="bug" class="w-6 h-6 text-purple-400"></i>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">2025</span>
+                    </div>
+                    <h3 class="text-white font-bold mb-1">Advanced Bug Bounty</h3>
+                    <p class="text-gray-500 text-sm">Red Nexus</p>
+                </div>
+
+                <div class="cert-badge bg-[#111] border border-gray-800 rounded-xl p-6 relative overflow-hidden group reveal">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-orange-500/5 rounded-full blur-2xl group-hover:bg-orange-500/10 transition-all"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                            <i data-lucide="graduation-cap" class="w-6 h-6 text-orange-400"></i>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">2025</span>
+                    </div>
+                    <h3 class="text-white font-bold mb-1">Bug Bounty Workshop</h3>
+                    <p class="text-gray-500 text-sm">Greenarmor</p>
+                </div>
+
+                <div class="cert-badge bg-[#111] border border-gray-800 rounded-xl p-6 relative overflow-hidden group reveal delay-100">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-red-500/5 rounded-full blur-2xl group-hover:bg-red-500/10 transition-all"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-red-500/10 flex items-center justify-center">
+                            <i data-lucide="shield-check" class="w-6 h-6 text-red-400"></i>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">2025</span>
+                    </div>
+                    <h3 class="text-white font-bold mb-1">Penetration Tester</h3>
+                    <p class="text-gray-500 text-sm">GDG Al Azhar</p>
+                </div>
+
+                <div class="cert-badge bg-[#111] border border-gray-800 rounded-xl p-6 relative overflow-hidden group reveal delay-200">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-all"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                            <i data-lucide="network" class="w-6 h-6 text-cyan-400"></i>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">2024</span>
+                    </div>
+                    <h3 class="text-white font-bold mb-1">Advanced Network Security</h3>
+                    <p class="text-gray-500 text-sm">MaharaTech</p>
+                </div>
+
+                <div class="cert-badge bg-[#111] border border-gray-800 rounded-xl p-6 relative overflow-hidden group reveal">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-yellow-500/5 rounded-full blur-2xl group-hover:bg-yellow-500/10 transition-all"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+                            <i data-lucide="alert-circle" class="w-6 h-6 text-yellow-400"></i>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">2024</span>
+                    </div>
+                    <h3 class="text-white font-bold mb-1">OWASP Top 10 Awareness</h3>
+                    <p class="text-gray-500 text-sm">MaharaTech</p>
+                </div>
+
+                <div class="cert-badge bg-[#111] border border-gray-800 rounded-xl p-6 relative overflow-hidden group reveal delay-100">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-pink-500/5 rounded-full blur-2xl group-hover:bg-pink-500/10 transition-all"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-pink-500/10 flex items-center justify-center">
+                            <i data-lucide="terminal" class="w-6 h-6 text-pink-400"></i>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500">2024</span>
+                    </div>
+                    <h3 class="text-white font-bold mb-1">Ethical Hacking</h3>
+                    <p class="text-gray-500 text-sm">MaharaTech</p>
+                </div>
+
+                <div class="cert-badge bg-[#111] border border-gray-800 rounded-xl p-6 relative overflow-hidden group reveal delay-200 border-dashed border-emerald-500/30">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-all"></div>
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center animate-pulse">
+                            <i data-lucide="loader" class="w-6 h-6 text-emerald-400"></i>
+                        </div>
+                        <span class="text-xs font-mono text-emerald-400">IN PROGRESS</span>
+                    </div>
+                    <h3 class="text-white font-bold mb-1">OSCP Certification</h3>
+                    <p class="text-gray-500 text-sm">Offensive Security</p>
+                    <div class="mt-3 h-1 bg-gray-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-emerald-500 w-3/4 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="reveal">
+                <span class="font-mono text-emerald-400 text-sm">[05]</span>
+                <h2 class="text-3xl md:text-5xl font-bold text-white mt-2 mb-6">Establish Connection</h2>
+                <p class="text-gray-400 text-lg mb-12">
+                    Ready for security assessments, red team operations, or collaboration opportunities.
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <a href="mailto:hanybotter2005@gmail.com" class="cyber-card bg-[#111] rounded-xl p-6 group hover:border-emerald-500 transition-all">
+                        <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="mail" class="w-6 h-6 text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-white font-semibold mb-1">Email</h3>
+                        <p class="text-gray-500 text-sm font-mono break-all">hanybotter2005@gmail.com</p>
+                    </a>
+
+                    <a href="tel:+201033588417" class="cyber-card bg-[#111] rounded-xl p-6 group hover:border-emerald-500 transition-all">
+                        <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <i data-lucide="phone" class="w-6 h-6 text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-white font-semibold mb-1">Phone</h3>
+                        <p class="text-gray-500 text-sm font-mono">+20 1033588417</p>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/hany-reda10" target="_blank" rel="noopener noreferrer" class="cyber-card bg-[#111] rounded-xl p-6 group hover:border-emerald-500 transition-all">
+                        <div class="w-12 h-12 rounded-lg bg-emerald-500/10 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-emerald-400 lucide lucide-linkedin">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect width="4" height="12" x="2" y="9"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-white font-semibold mb-1">LinkedIn</h3>
+                        <p class="text-gray-500 text-sm font-mono">Hany Reda</p>
+                    </a>
+                </div>
+
+                <div class="terminal-window max-w-2xl mx-auto text-left">
+                    <div class="terminal-header">
+                        <div class="terminal-dot bg-red-500"></div>
+                        <div class="terminal-dot bg-yellow-500"></div>
+                        <div class="terminal-dot bg-green-500"></div>
+                        <span class="ml-2 text-xs text-gray-500 font-mono">root@hany:~$ contact --initiate</span>
+                    </div>
+                    <div class="terminal-body text-gray-300">
+                        <div class="typing-text-contact"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-8 bg-[#0c0c0c]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-emerald-500/10 rounded flex items-center justify-center border border-emerald-500/30">
+                    <i data-lucide="shield" class="w-3 h-3 text-emerald-400"></i>
+                </div>
+                <span class="font-mono text-sm text-gray-500">Hany Reda Farag Ali</span>
+            </div>
+            <div class="text-gray-600 text-sm font-mono">
+                <span class="text-emerald-500/50">&lt;/&gt;</span> with <span class="text-red-500/50">♥</span> for cybersecurity
+            </div>
+            <div class="text-gray-600 text-sm">
+                © 2026 All systems operational
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * -100;
+        }
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff88';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        setInterval(drawMatrix, 35);
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Typing Effect for Hero
+        const texts = ['Penetration Tester', 'Bug Bounty Hunter', 'CTF Player', 'OSCP Pursuer', 'Red Teamer'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typing-text');
+        
+        function typeEffect() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(typeEffect, 500);
+            } else {
+                setTimeout(typeEffect, isDeleting ? 50 : 100);
+            }
+        }
+        
+        typeEffect();
+
+        // Contact Terminal Typing
+        const contactText = `> Initializing secure channel...
+> Encrypting payload...
+> Handshake established.
+> Ready for communication.
+> Awaiting your instructions...`;
+        
+        const contactElement = document.querySelector('.typing-text-contact');
+        let contactCharIndex = 0;
+        
+        function typeContact() {
+            if (contactCharIndex < contactText.length) {
+                contactElement.textContent += contactText.charAt(contactCharIndex);
+                contactCharIndex++;
+                setTimeout(typeContact, 30);
+            }
+        }
+        
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Animate skill bars
+                    const skillBars = entry.target.querySelectorAll('.skill-bar');
+                    skillBars.forEach(bar => {
+                        setTimeout(() => bar.classList.add('animate'), 200);
+                    });
+                    
+                    // Start contact typing when visible
+                    if (entry.target.querySelector('.typing-text-contact') && contactCharIndex === 0) {
+                        setTimeout(typeContact, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Particle System
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.opacity = Math.random() * 0.5;
+                container.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Active Navigation Highlight
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-emerald-400');
+                link.classList.add('text-gray-400');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.remove('text-gray-400');
+                    link.classList.add('text-emerald-400');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
