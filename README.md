@@ -2,12 +2,12 @@
 
 Security Researcher & Offensive Security Enthusiast | Founder @ CyMatriX
 
-- 🔭 **I’m currently working on:** Bug hunting on HackerOne & Bugcrowd, leading security research at CyMatriX, and building web application security tools.[cite: 1]
-- 👯 **I’m looking to collaborate on:** Open-source offensive security tools, custom Burp Suite extensions, and web application exploitation research.[cite: 1]
-- 🤝 **I’m looking for help with:** Advanced red teaming methodologies and low-level binary exploitation.[cite: 1]
-- 🌱 **I’m currently learning:** HTB Certified Penetration Testing Specialist (CPTS) coursework, advanced Linux system internals, and network penetration testing.[cite: 1]
-- 💬 **Ask me about:** Web application security, manual payload crafting, CTF strategy, and Burp Suite workflows.[cite: 1]
-- ⚡ **Fun fact:** I've solved 50+ CTF challenges across various platforms and love dissecting complex web vulnerabilities.[cite: 1]
+- 🔭 **I’m currently working on:** Bug hunting on HackerOne & Bugcrowd, leading security research at CyMatriX, and building web application security tools.
+- 👯 **I’m looking to collaborate on:** Open-source offensive security tools, custom Burp Suite extensions, and web application exploitation research.
+- 🤝 **I’m looking for help with:** Advanced red teaming methodologies and low-level binary exploitation.
+- 🌱 **I’m currently learning:** HTB Certified Penetration Testing Specialist (CPTS) coursework, advanced Linux system internals, and network penetration testing.
+- 💬 **Ask me about:** Web application security, manual payload crafting, CTF strategy, and Burp Suite workflows.
+- ⚡ **Fun fact:** I've solved 50+ CTF challenges across various platforms and love dissecting complex web vulnerabilities.
 
 
 ## 🌐 Socials:
